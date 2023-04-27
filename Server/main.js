@@ -22,8 +22,8 @@ app.use(
   })
 );
 
-app.listen(3000,() =>
-  console.log('3000번 포트에서 실행중')
+app.listen(1299,() =>
+  console.log('1299번 포트에서 실행중')
 )
 
 const axiosInstance = axios.create({
@@ -38,42 +38,15 @@ app.get("/place", async (req,res)=>{
       ]).then(
         axios.spread((res1,res2)=>{
           const placeData = res1.data;
-          // console.log(placeData);
-          finalData.push(placeData)
+          // console.log(placeData.items[0]);
+          finalData.push(placeData.items[0])
           const thumbData = res2.data;
           // console.log(thumbData);
-          finalData.push(thumbData)
-          console.log(finalData);
-
-          // const dataAll = [...placeData,...thumbData]
+          finalData.push(thumbData.items[0])
+          // console.log(finalData[1].link);
           res.send(finalData)
         })
       ).catch((error) => {
         console.log("Error: ", error); 
       })
     })
-    
-  //   axios.spread((res1,res2)=>{
-  //     console.log(res1);
-  //   })
-  //   const resultMsg = result.data;
-  //   res.send(resultMsg);
-  // } catch (err) {
-  //   console.log(err);
-  // }
-// })
-
-// app.get("/place", async (req,res)=>{
-//   try {
-//     // res.send(req.query.name)
-//     let result = await axios({
-//       method: "get",
-//       url: `https://openapi.naver.com/v1/search/image?query=${req.query.name}&sort=sim&filter=large&display=1`,
-//       headers: header,
-//     });
-//     const resultMsg = result.data;
-//     res.send(resultMsg);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// })
